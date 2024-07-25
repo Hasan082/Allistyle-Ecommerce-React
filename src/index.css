@@ -1,0 +1,194 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.navlink {
+    @apply px-[10px] py-1 inline-block hover:text-tertiary-color transition-all duration-300
+}
+
+.shopby {
+    @apply whitespace-nowrap px-3 py-1 hover:bg-primary-color transition-all duration-300 text-left
+}
+
+.as-primary-btn {
+    @apply px-5 py-2 rounded-md text-white font-semibold bg-tertiary-color
+}
+
+.as-outline-btn {
+    @apply px-5 py-3 border-2 border-[#fff0e5] rounded-md text-white font-semibold bg-transparent hover:bg-[#fff0e5] hover:text-secondary-color transition-all duration-300
+}
+
+
+/*======SHOP CSS=====*/
+
+.price {
+    @apply relative
+}
+.price:before {
+    content: "$";
+}
+
+
+.overlay {
+    @apply after:absolute after:top-0 after:left-0 after:bottom-0 after:right-0 after:bg-[#000] after:opacity-50 after:z-[-1]
+}
+
+
+li.w-\[60\%\] {
+    width: 60% !important;
+}
+
+li.w-\[10\%\] {
+    width: 10% !important;
+}
+
+li.w-\[20\%\] {
+    width: 20% !important;
+}
+
+li.w-\[30\%\] {
+    width: 30% !important;
+}
+
+li.w-\[40\%\] {
+    width: 40% !important;
+}
+
+li.w-\[50\%\] {
+    width: 50% !important;
+}
+
+li.w-\[60\%\] {
+    width: 60% !important;
+}
+
+li.w-\[70\%\] {
+    width: 70% !important;
+}
+
+li.w-\[80\%\] {
+    width: 80% !important;
+}
+
+li.w-\[90\%\] {
+    width: 90% !important;
+}
+
+li.w-\[100\%\] {
+    width: 100% !important;
+}
+
+/* ============CUSTOM CHECKBOX CODE ============= */
+
+.custom-control {
+    @apply relative block min-h-[24px] pl-[24px]
+}
+
+.custom-control-label {
+    @apply relative mb-0 align-top
+}
+.custom-control-label {
+    @apply before:absolute before:top-1 before:left-[-24px] before:block before:w-4 before:h-4 before:pointer-events-none before:bg-white before:border before:border-[#969696] before:rounded-[3px]
+
+}
+
+
+.custom-control-label {
+    @apply after:absolute after:top-1 after:-left-6 after:block after:w-4 after:h-4
+
+}
+
+.custom-checkbox input:checked ~ .custom-control-label {
+    @apply before:text-white before:border-tertiary-color before:bg-tertiary-color after:bg-no-repeat after:bg-[55%_center]
+}
+
+.custom-checkbox input:checked ~ .custom-control-label::after {
+    background-size: 70%;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
+}
+
+/* ============FILTER CODE ============= */
+
+.filter-wrapper {
+    @apply overflow-auto max-h-[80vh] lg:max-h-none
+}
+
+.filter-catgory-style {
+    @apply capitalize leading-[1.9] cursor-pointer transition-all duration-200 hover:text-tertiary-color
+}
+
+.brand-filter {
+    @apply bg-white overflow-hidden
+}
+
+.dropdown-content {
+    @apply max-h-[500px] duration-700 transition-[max-height] bg-white overflow-hidden
+}
+
+.dropdown-content.slideUp {
+    @apply relative max-h-0
+}
+
+.dropdown-toggle {
+    @apply whitespace-nowrap text-secondary-color
+}
+
+.dropdown-toggle {
+    @apply after:inline-block after:ml-[.255em] after:align-[.225em] after:border-transparent after:border-t-secondary-color after:border-t-[.3em] after:border-r-[.3em] after:border-b-0 after:border-l-[.3em] after:rotate-0 after:duration-300 after:transition-transform
+}
+
+.dropdown-toggle.active {
+    @apply after:-rotate-90
+}
+
+
+/*Custom range slider*/
+.custom-range {
+    @apply w-full h-[10px] p-0 bg-transparent appearance-none transition-[background-color] duration-200
+}
+
+.custom-range:focus {
+    @apply outline-none;
+}
+
+.custom-range::-webkit-slider-thumb {
+    @apply w-[10px] h-[10px] mt-[-3px] bg-transparent appearance-none border-[8px] border-solid border-tertiary-color rounded-[50%] transition-[box-shadow] duration-300
+}
+.custom-range::-webkit-slider-thumb:active {
+    @apply shadow-[0_0_10px] shadow-gray-500
+}
+.custom-range:active {
+    @apply bg-transparent
+}
+
+.custom-range::-webkit-slider-runnable-track {
+    @apply bg-gray-300 w-full h-[10px] rounded-[10px] transition-[background-color] duration-200
+}
+
+.custom-range::-webkit-slider-runnable-track:active {
+    @apply bg-gray-400
+}
+
+.input-style {
+    @apply block w-full h-10 p-[.45rem_.85rem] text-base font-normal text-secondary-color bg-clip-padding border rounded-md transition-[box-shadow]
+}
+
+.input-style:focus {
+    @apply outline-none border-tertiary-color
+}
+
+
+/*=====MOBILE FILTER CODE START======*/
+.sidebar {
+    @apply border h-min p-4 bg-white fixed lg:static bottom-14 right-3 translate-x-56 lg:translate-x-0 z-[999] w-[220px] lg:w-auto transition-transform duration-[400ms] rounded-md lg:rounded-none
+}
+
+.sidebar.showNav {
+    @apply translate-x-0
+}
+
+.reset-filter {
+    @apply text-sm flex items-center justify-center absolute leading-[1] right-3 top-3 as-primary-btn !px-2 bg-tertiary-color text-white z-50
+
+}
