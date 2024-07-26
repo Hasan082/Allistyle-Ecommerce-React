@@ -28,6 +28,10 @@ const Shop = () => {
         setFilters((prevFilter) => ({ ...prevFilter, minPrice: min, maxPrice: max }))
     };
 
+    const handlePriceRange = (val) => {
+        setFilters((prevFilter) => ({ ...prevFilter, minPrice: 0, maxPrice: val }))
+    }
+
     const handleSort = (sortType) => {
         setFilters((prevFilter) => ({ ...prevFilter, sort: sortType }))
     }
@@ -82,7 +86,8 @@ const Shop = () => {
                 <SideBar
                     handleCategoryFilter={handleCategoryFilter}
                     handleResetFilter={handleResetFilter}
-                    handlePriceRange={handleInputPriceValue}
+                    handleInputPriceValue={handleInputPriceValue}
+                    handlePriceRange={handlePriceRange}
                     handleSortAtoZ={(val) => handleSort(val==="atoz" ? "atoz" : "ztoa")}
                     handlePriceSorterLowToHigh={(val)=> handleSort(val==="low" ? "low" : "high")}
                 />

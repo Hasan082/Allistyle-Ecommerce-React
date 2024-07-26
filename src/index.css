@@ -189,6 +189,6 @@ li.w-\[100\%\] {
 }
 
 .reset-filter {
-    @apply text-sm flex items-center justify-center absolute leading-[1] right-3 top-3 as-primary-btn !px-2 bg-tertiary-color text-white z-50
+    @apply text-sm flex items-center justify-center absolute leading-[1] right-3 top-3 p-2 rounded-md bg-tertiary-color text-white z-50
 
 }

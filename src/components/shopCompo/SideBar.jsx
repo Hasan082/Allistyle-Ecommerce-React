@@ -2,7 +2,7 @@ import { useState } from "react";
 import useContextProducts from "../../hooks/useContextProducts";
 
 
-const SideBar = ({ handleCategoryFilter, handleResetFilter, handlePriceRange, handleSortAtoZ, handlePriceSorterLowToHigh }) => {
+const SideBar = ({ handleCategoryFilter, handleResetFilter, handleInputPriceValue, handleSortAtoZ, handlePriceSorterLowToHigh, handlePriceRange }) => {
 
     const { uniqueCategoryFilter, uniqueBrandFilter } = useContextProducts()
 
@@ -29,7 +29,8 @@ const SideBar = ({ handleCategoryFilter, handleResetFilter, handlePriceRange, ha
                             </ul>
                         </div>
                     </div>
-                    <div className='brand-filter mt-2'>
+                    <hr />
+                    <div className='brand-filter my-2'>
                         <button onClick={() => setBrandSlide(!brandSlide)} className={`${!brandSlide ? "active" : ""} dropdown-toggle font-semibold text-lg`}>Brands</button>
                         <div className={`${brandSlide ? "slideDown" : "slideUp"} dropdown-content`}>
                             <ul className="py-2 text-sm leading-[1.8]">
@@ -50,15 +51,16 @@ const SideBar = ({ handleCategoryFilter, handleResetFilter, handlePriceRange, ha
                             </ul>
                         </div>
                     </div>
-                    <div className="price-filter mt-2">
+                    <hr />
+                    <div className="price-filter my-2">
                         <button onClick={() => setPriceSlide(!priceSlide)} className={`${!priceSlide ? "active" : ""} dropdown-toggle font-semibold text-lg`}>Price</button>
                         <div className={`${priceSlide ? "slideDown" : "slideUp"} dropdown-content`}>
                             <div className="py-2">
                                 <div className="price-range-wrapper">
                                     <input onChange={(e)=>handlePriceRange(e.target.value)} className="custom-range" type="range" min={0} max={100} step={10} name="range" />
-                                </div>
+                                </div>                                
                                 <div className="mt-3">
-                                    <form onSubmit={handlePriceRange}>
+                                    <form onSubmit={handleInputPriceValue}>
                                         <div className="grid grid-cols-2 gap-2">
                                             <div className="text-left">
                                                 <label className="mb-1 block">Min</label>
@@ -75,7 +77,8 @@ const SideBar = ({ handleCategoryFilter, handleResetFilter, handlePriceRange, ha
                             </div>
                         </div>
                     </div>
-                    <div className="sort-filter mt-2">
+                    <hr />
+                    <div className="sort-filter my-2">
                         <button onClick={() => setSortSlide(!sortSlide)} className={`${!sortSlide ? "active" : ""} dropdown-toggle font-semibold text-lg`}>Sort</button>
                         <div className={`${sortSlide ? "slideDown" : "slideUp"} dropdown-content`}>
                             <ul className="text-sm py-2">
@@ -88,6 +91,7 @@ const SideBar = ({ handleCategoryFilter, handleResetFilter, handlePriceRange, ha
                             </ul>
                         </div>
                     </div>
+                    <hr />
                 </div>
             </aside>
         </div>
