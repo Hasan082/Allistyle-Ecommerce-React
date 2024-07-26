@@ -36,7 +36,7 @@ const SideBar = ({ handleCategoryFilter, handleResetFilter, handleInputPriceValu
                             <ul className="py-2 text-sm leading-[1.8]">
                                 {
                                     uniqueBrandFilter.keys().toArray().map((item, index) =>
-                                        <li key={index} >
+                                        <li key={index}>
                                             <label className="pl-1 relative block custom-control custom-checkbox" htmlFor={`brand-${index}`} title={item}>
                                                 <input className="absolute opacity-0 z-[-1]" type="checkbox" id={`brand-${index}`} value={item} />
                                                 <div className="custom-control-label before:absolute ">
