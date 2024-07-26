@@ -3,89 +3,73 @@ import Banner from '../components/homeCompo/Banner';
 import useContextProducts from '../hooks/useContextProducts';
 import shopBannerImg from "../assets/img/slide-lg-3.jpg"
 import SideBar from '../components/shopCompo/SideBar';
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 const Shop = () => {
 
     const { products } = useContextProducts()
 
-    const [newProducts, setNewProducts] = useState([])
-
-    useEffect(() => {
-        setNewProducts([...products])
-    }, [products])
+    const [filters, setFilters] = useState({
+        category: "",
+        minPrice: 0,
+        maxPrice: Infinity,
+        sort: ''
+    })
 
     const handleCategoryFilter = (catName) => {
-        if (catName) {
-            setNewProducts(products.filter(item => item.category == catName));
-        }
+        setFilters((prevFilter) => ({ ...prevFilter, category: catName }));
     }
 
-
-    const handlePriceRange = (price) => {
-        if (price > 0) {
-            setNewProducts(products.filter(item => item.discount < 1 ? (item.price > price) : (((item.price - (item.price * item.discount) / 100)) > price)));
-        }
-    }
-
-
-
-    //HANDLE FOR INPUT PRICE FILTER==========
     const handleInputPriceValue = (e) => {
         e.preventDefault();
-        const form = e.target,
-            min = form.minPrice.value,
-            max = form.maxPrice.value;
-        setNewProducts(products.filter(item => {
-            let price = item.price,
-                discount = item.discount,
-                postDiscount = (price - (price * discount) / 100);
-            return discount < 1 ? (price >= min && price <= max) : postDiscount >= min && (postDiscount <= max);
-        })
-        )
+        const { minPrice, maxPrice } = e.target;
+        const min = parseFloat(minPrice.value) || 0;
+        const max = parseFloat(maxPrice.value) || Infinity;
+        setFilters((prevFilter) => ({ ...prevFilter, minPrice: min, maxPrice: max }))
+    };
+
+    const handleSort = (sortType) => {
+        setFilters((prevFilter) => ({ ...prevFilter, sort: sortType }))
     }
 
-
-
-    //HANDLE FOR RANGE SLIDE PRICE FILTER LOW TO HIGH============
-    const handlePriceSorterLowToHigh = (val) => {
-        const calculateDiscountedPrice = (product) => {
-            let price = parseFloat(product.price);
-            let discount = parseFloat(product.discount);
-            return price - (discount < 1 ? 0 : (price * discount) / 100);
-        };
-
-        const sortedProducts = [...products].sort((a, b) => {
-            let priceA = calculateDiscountedPrice(a);
-            let priceB = calculateDiscountedPrice(b);
-            return val === "low" ? priceA - priceB : priceB - priceA;
-        });
-
-        setNewProducts(sortedProducts);
-    };
-
-    //HANDLE FOR RANGE SLIDE PRICE FILTER LOW TO HIGH============
-    const handleSortAtoZ = (val) => {
-        console.log(val)
-        const sortedProducts = [...products].sort((a, b) => {
-            return val === "atoz" ? a.title - b.title : b.title - a.title;
-        });
-        setNewProducts(sortedProducts);
-    };
-
-
-
-
-
-
-
-
-    //RESET FILTER HANDLE======
     const handleResetFilter = () => {
-        setNewProducts([...products])
+        setFilters({
+            category: "",
+            minPrice: 0,
+            maxPrice: Infinity,
+            sort: ''
+        })
     }
 
+    const filterSortedProduct = useMemo(()=> {
 
+        let filterProducts = products;
+
+        if(filters.category) {
+            filterProducts = filterProducts.filter(item => item.category == filters.category)
+        }
+
+        if (filters.minPrice > 0 || filters.maxPrice < Infinity){
+            filterProducts = filterProducts.filter(item => {
+                const price= parseFloat(item.price), discount = parseFloat(item.discount);
+                const finalPrice = discount < 1 ? price : price * (1 - discount / 100);
+                return finalPrice >= filters.minPrice && finalPrice <= filters.maxPrice;
+            })
+        }
+
+        if(filters.sort) {
+            filterProducts = filterProducts.sort((a, b) => {
+                const priceA = parseFloat(a.price) * (1 - parseFloat(a.discount)/100);
+                const priceB = parseFloat(b.price) * (1 - parseFloat(b.discount)/100);
+                if(filters.sort === 'atoz') return a.title.localeCompare(b.title);
+                else if (filters.sort === 'ztoa') return b.title.localeCompare(a.title);
+                else return filters.sort === 'low' ? priceA - priceB : priceB - priceA;
+            })
+        }
+
+        return filterProducts;
+
+    }, [products, filters])
 
 
     return (
@@ -95,12 +79,18 @@ const Shop = () => {
 
             <div className='grid lg:grid-cols-[1fr_4fr] gap-3 items-start'>
 
-                <SideBar handleCategoryFilter={handleCategoryFilter} handleResetFilter={handleResetFilter} handlePriceRange={handlePriceRange} handlePriceSorterLowToHigh={handlePriceSorterLowToHigh} handleInputPriceValue={handleInputPriceValue} handleSortAtoZ={handleSortAtoZ} />
+                <SideBar
+                    handleCategoryFilter={handleCategoryFilter}
+                    handleResetFilter={handleResetFilter}
+                    handlePriceRange={handleInputPriceValue}
+                    handleSortAtoZ={(val) => handleSort(val==="atoz" ? "atoz" : "ztoa")}
+                    handlePriceSorterLowToHigh={(val)=> handleSort(val==="low" ? "low" : "high")}
+                />
 
                 <section>
                     <div className="grid xs:grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4 lg:gap-6">
                         {
-                            newProducts.map(item => <ProductCard key={item.id} item={item} />)
+                            filterSortedProduct.map(item => <ProductCard key={item.id} item={item} />)
                         }
                     </div>
 

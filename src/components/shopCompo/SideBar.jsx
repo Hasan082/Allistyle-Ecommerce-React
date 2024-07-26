@@ -2,7 +2,7 @@ import { useState } from "react";
 import useContextProducts from "../../hooks/useContextProducts";
 
 
-const SideBar = ({ handleCategoryFilter, handleResetFilter, handlePriceRange, handleInputPriceValue, handlePriceSorterLowToHigh, handleSortAtoZ }) => {
+const SideBar = ({ handleCategoryFilter, handleResetFilter, handlePriceRange, handleSortAtoZ, handlePriceSorterLowToHigh }) => {
 
     const { uniqueCategoryFilter, uniqueBrandFilter } = useContextProducts()
 
@@ -58,7 +58,7 @@ const SideBar = ({ handleCategoryFilter, handleResetFilter, handlePriceRange, ha
                                     <input onChange={(e)=>handlePriceRange(e.target.value)} className="custom-range" type="range" min={0} max={100} step={10} name="range" />
                                 </div>
                                 <div className="mt-3">
-                                    <form onSubmit={handleInputPriceValue}>
+                                    <form onSubmit={handlePriceRange}>
                                         <div className="grid grid-cols-2 gap-2">
                                             <div className="text-left">
                                                 <label className="mb-1 block">Min</label>
@@ -91,7 +91,6 @@ const SideBar = ({ handleCategoryFilter, handleResetFilter, handlePriceRange, ha
                 </div>
             </aside>
         </div>
-
     );
 };
 
