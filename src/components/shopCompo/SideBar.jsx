@@ -2,7 +2,7 @@ import { useState } from "react";
 import useContextProducts from "../../hooks/useContextProducts";
 
 
-const SideBar = ({ handleCategoryFilter, handleResetFilter, handlePriceRange, handleInputPriceValue, handlePriceSorterLowToHigh }) => {
+const SideBar = ({ handleCategoryFilter, handleResetFilter, handlePriceRange, handleInputPriceValue, handlePriceSorterLowToHigh, handleSortAtoZ }) => {
 
     const { uniqueCategoryFilter, uniqueBrandFilter } = useContextProducts()
 
@@ -79,8 +79,8 @@ const SideBar = ({ handleCategoryFilter, handleResetFilter, handlePriceRange, ha
                         <button onClick={() => setSortSlide(!sortSlide)} className={`${!sortSlide ? "active" : ""} dropdown-toggle font-semibold text-lg`}>Sort</button>
                         <div className={`${sortSlide ? "slideDown" : "slideUp"} dropdown-content`}>
                             <ul className="text-sm py-2">
-                                <li className="filter-catgory-style">A to Z</li>
-                                <li className="filter-catgory-style">Z to A</li>
+                                <li onClick={()=> handleSortAtoZ("atoz")} className="filter-catgory-style">A to Z</li>
+                                <li onClick={()=> handleSortAtoZ("ztoa")} className="filter-catgory-style">Z to A</li>
                                 <li className="filter-catgory-style">Newest to Oldest</li>
                                 <li className="filter-catgory-style">Oldest to Newest</li>
                                 <li onClick={() => handlePriceSorterLowToHigh("low")} className="filter-catgory-style">Price: Low to High</li>
